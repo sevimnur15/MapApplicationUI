@@ -1,17 +1,25 @@
-body, html {
-    margin: 0;
+* {
     padding: 0;
-    height: 100%;
-    font-family: 'Poppins', sans-serif; /* Modern yazı tipi */
-    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Degrade arka plan */
+    margin: 0;
 }
 
 #map {
     width: 100%;
-    height: 100vh; /* Harita kısmını ekranın %100'i olarak ayarlıyoruz */
+    height: 100vh; 
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f0f0;
 }
 
 .navbar {
+
+    z-index: 1000;
+    backdrop-filter: blur(10px); /* Arkadaki içeriği bulanıklaştırır */
     backdrop-filter: blur(3px); /* Bulanık arka plan efekti */
     background-color: rgba(255, 255, 255, 0.1); /* Şeffaf beyaz arka plan */
     padding: 15px 30px; /* Geniş iç boşluk */
@@ -28,11 +36,13 @@ body, html {
     margin: 0 auto; /* Sağdan ve soldan eşit boşluk bırakır */
 }
 
-.logo {
-    height: 50px;
+.navbar .buttons {
+    display: flex;
+    gap: 3em;
 }
 
-.navbar-buttons button {
+.navbar button {
+   
     border: none;
     padding: 10px 25px; /* Butonları büyütmek için padding artırıldı */
     margin-left: 15px;
@@ -45,31 +55,255 @@ body, html {
     background-color: #42a5f5;
 }
 
-.navbar-buttons button:hover {
-    background-color: #fff; /* Hover sırasında arka plan rengini beyaz yapar */
-    color: #333; /* Hover sırasında yazı rengini koyulaştırır */
-    transform: translateY(-3px); /* Hafif yukarı hareket efekti */
+.navbar button::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: all 0.7s ease;
+    border-radius: 50%;
+    z-index: 0;
+    transform: translate(-50%, -50%) scale(0);
 }
-/* Varsayılan stil ayarları */
+
+.navbar:hover {
+    background: rgba(51, 51, 51, 0); /* Navbar'ı şeffaf yap */
+    backdrop-filter: blur(0); /* Üzerine geldiğinde bulanık olmasın */
+}
+
+.navbar button:hover {
+    color: #fff;
+    background-color: #0d10ed;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05); 
+    font-weight: bold;
+}
+
+.navbar button span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Dropdown Stilleri */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #2782bf;
+    color: #ffffff;
+    padding: 0.7em 1.5em;
+    font-size: 1.5em;
+    border: none;
+    cursor: pointer;
+    border-radius: 60px;
+    font-weight: 400;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropbtn:hover {
+    background-color: #0d10ed;
+}
+
+/* Aktif sınıf için seçilen dropdown öğesi */
+.dropdown-content a.active {
+    background-color: #ddd;
+}
+
+.logo {
+    width: 100px; /* Logonun genişliği */
+    height: 50px; /* Logonun yüksekliği */
+    display: flex; /* İçindeki resmi ortalamak için */
+    align-items: center; /* Dikey ortalama */
+}
+
+.logo img {
+    max-width: 100%; /* Resmin genişliğini logoya uydur */
+    height: 50px; /* Oranları koruyarak yükseklik ayarla */
+}
+.ol-popup {
+    position: absolute;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    bottom: 12px;
+    left: -50px;
+    min-width: 280px;
+}
+.ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.ol-popup:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-top-color: white;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+}
+.ol-popup:before {
+    border-color: rgba(204, 204, 204, 0);
+    border-top-color: #cccccc;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+}
+.ol-popup-closer {
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+}
+/* Genel stil ayarları */
 body {
-    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Normal arka plan */
-    color: #333; /* Normal yazı rengi */
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
 }
 
-/* Forced Colors Mode için stil ayarları */
-@media (forced-colors: active) {
-    body {
-        background-color: Canvas; /* Arka plan rengini Canvas ile değiştirin */
-        color: WindowText; /* Yazı rengini WindowText ile değiştirin */
-    }
+h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
 
-    .navbar {
-        background-color: Highlight; /* Navbar arka planını Highlight ile değiştirin */
-        color: HighlightText; /* Navbar yazı rengini HighlightText ile değiştirin */
-    }
+/* jsPanel için stil ayarları */
+.jsPanel {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    width: 400px; /* Panel genişliğini artır */
+    height: auto; /* Yükseklik otomatik ayar */
+}
 
-    .navbar-buttons button {
-        background-color: ButtonFace; /* Buton arka planını ButtonFace ile değiştirin */
-        color: ButtonText; /* Buton yazı rengini ButtonText ile değiştirin */
-    }
+.jsPanel .header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-weight: bold;
+}
+
+.jsPanel .content {
+    padding: 15px;
+}
+
+/* Tablo stil ayarları */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+/* Buton stil ayarları */
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Popup stil ayarları */
+#popup {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+#popup-closer {
+    cursor: pointer;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+/* Dropdown menü stil ayarları */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.active {
+    background-color: #007BFF;
+    color: white;
 }

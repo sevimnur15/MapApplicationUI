@@ -1,0 +1,82 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', sans-serif; /* Modern yazı tipi */
+    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Degrade arka plan */
+}
+
+#map {
+    width: 100%;
+    height: 100vh; /* Harita kısmını ekranın %100'i olarak ayarlıyoruz */
+}
+
+.navbar {
+    backdrop-filter: blur(3px); /* Bulanık arka plan efekti */
+    background-color: rgba(255, 255, 255, 0.1); /* Şeffaf beyaz arka plan */
+    padding: 15px 30px; /* Geniş iç boşluk */
+    border-radius: 30px; /* Yuvarlatılmış köşeler */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Gölge efekti */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%; /* Navbar genişliği */
+    position: absolute;
+    top: 20px; /* Navbar'ı sayfanın üst kısmına taşıyoruz */
+    left: 50%; /* Navbar'ı sayfanın ortasına yerleştiriyoruz */
+    transform: translateX(-50%); /* Sola doğru kaydırarak ortalıyoruz */
+    margin: 0 auto; /* Sağdan ve soldan eşit boşluk bırakır */
+}
+
+.logo {
+    height: 50px;
+}
+
+.navbar-buttons button {
+    border: none;
+    padding: 10px 25px; /* Butonları büyütmek için padding artırıldı */
+    margin-left: 15px;
+    cursor: pointer;
+    border-radius: 20px; /* Yuvarlak buton köşeleri */
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 16px; /* Yazı boyutu */
+    color: #fff;
+    background-color: #42a5f5;
+}
+
+.navbar-buttons button:hover {
+    background-color: #fff; /* Hover sırasında arka plan rengini beyaz yapar */
+    color: #333; /* Hover sırasında yazı rengini koyulaştırır */
+    transform: translateY(-3px); /* Hafif yukarı hareket efekti */
+}
+/* Varsayılan stil ayarları */
+body {
+    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Normal arka plan */
+    color: #333; /* Normal yazı rengi */
+}
+
+/* Forced Colors Mode için stil ayarları */
+@media (forced-colors: active) {
+    body {
+        background-color: Canvas; /* Arka plan rengini Canvas ile değiştirin */
+        color: WindowText; /* Yazı rengini WindowText ile değiştirin */
+    }
+
+    .navbar {
+        background-color: Highlight; /* Navbar arka planını Highlight ile değiştirin */
+        color: HighlightText; /* Navbar yazı rengini HighlightText ile değiştirin */
+    }
+
+    .navbar-buttons button {
+        background-color: ButtonFace; /* Buton arka planını ButtonFace ile değiştirin */
+        color: ButtonText; /* Buton yazı rengini ButtonText ile değiştirin */
+    }
+}
+/* <nav class="navbar">
+        <img class="logo" src="basarsoft-logo.png" alt="Logo">
+        <div class="navbar-buttons">
+            <button id="addPointButton">ADD POINT</button>
+            <button>QUERY</button>
+        </div>
+    </nav> */
